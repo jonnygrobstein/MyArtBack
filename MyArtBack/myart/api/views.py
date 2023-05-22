@@ -3,11 +3,6 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from .serializer import UserSerializer, ArtistSerializer, ArtworkSerializer
 
-class TestViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer

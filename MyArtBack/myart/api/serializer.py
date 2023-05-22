@@ -16,4 +16,3 @@ class ArtworkSerializer(serializers.ModelSerializer):
         model = Artwork
         fields = ['title', 'artist', 'year', 'medium', 'description', 'location', 'notes', 'image']
 
-
