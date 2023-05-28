@@ -10,8 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import corsheaders
+import datetime
+from corsheaders.defaults import default_headers
 from pathlib import Path
 from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +30,7 @@ SECRET_KEY = 'django-insecure-j71@(uu9jnfc8@71eqvd=!#f(b)#ncmcb4ej#o#&l=q^r^k=i6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,11 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
-    'corsheaders',
     'accounts',
-    'djoser',
     'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist'
+    'rest_framework_simplejwt.token_blacklist',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -123,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Chicago'
 
 USE_I18N = True
 
@@ -135,28 +138,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# DJOSER = {
-#     'LOGIN_FIELD': 'email',
-#     'USER_CREATE_PASSWORD_RETYPE': True,
-#     'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
-#     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
-#     'SEND_CONFIRMATION_EMAIL': True,
-#     'SET_USERNAME_RETYPE': True,
-#     'SET_PASSWORD_RETYPE': True,
-#     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
-#     'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
-#     'ACTIVATION_URL': 'activate/{uid}/{token}',
-#     'SEND_ACTIVATION_EMAIL': True,
-#     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
-#     'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:8000/google', 'http://localhost:8000/facebook'],
-#     'SERIALIZERS': {
-#         'user_create': 'accounts.serializers.UserCreateSerializer',
-#         'user': 'accounts.serializers.UserCreateSerializer',
-#         'current_user': 'accounts.serializers.UserCreateSerializer',
-#         'user_delete': 'djoser.serializers.UserDeleteSerializer',
-#     }
-# }
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -166,7 +147,7 @@ AUTH_USER_MODEL = 'accounts.UserAccount'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -182,9 +163,4 @@ SIMPLE_JWT = {
     )
 }
 
-# JWT_AUTH = {
-#     # how long the original token is valid for
-#     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=3),
-#     # allow refreshing of tokens
-#     'JWT_ALLOW_REFRESH': True,
-# }
+CORS_ORIGIN_ALLOW_ALL = True
